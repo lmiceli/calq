@@ -1,22 +1,24 @@
 package com.pacho.android.calq;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Calculator calculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -26,7 +28,34 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
+        TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
+
+        calculator = new Calculator(resultTextView);
+
     }
+
+    public void numberPressed (View view) {
+//        Intent intent = new Intent (this, Main2Activity.class);
+//        startActivity(intent);
+
+        Log.d("some tag", "number pressed called");
+//        TODO check error case
+//        TODO this is not working with more than one digit
+        Button b = (Button) view;
+        String buttonText = b.getText().toString();
+
+        int number = Integer.parseInt(buttonText);
+        calculator.numberPressed(number);
+    }
+    public void operationPressed(View view){
+        Log.d("some tag", "operation pressed called");
+        //        TODO check error case
+        Button b = (Button) view;
+        String buttonText = b.getText().toString();
+        calculator.operationPressed(buttonText);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

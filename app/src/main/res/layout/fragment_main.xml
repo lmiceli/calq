@@ -13,86 +13,89 @@
         android:text="0"
         android:layout_alignParentEnd="true"
         android:textAlignment="viewEnd"
-        android:id="@+id/textView"
+        android:id="@+id/resultTextView"
         />
-<!-- TODO: FOR SOME REASON I CANT MAKE THE FIFTH COLUMN TO SHOW WELL-->
+
+
     <GridLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/resultTextView"
         android:layout_alignParentStart="true"
         android:layout_marginTop="35dp"
-        android:columnCount="5"
-        android:rowCount="4"
+        android:columnCount="4"
+
+        android:layout_centerHorizontal="true"
         android:id="@+id/gridLayout">
 
 
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_seven"
             android:text="7"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_eight"
             android:text="8"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_nine"
             android:text="9"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_divide"
             android:text="/"
-            android:layout_gravity="center|left"
-            android:layout_width="wrap_content" />
-        <Button style="@style/AppTheme.CalculatorButton"
-            android:id="@+id/button_percent"
-            android:text="%"
+            android:onClick="operationPressed"
             />
+
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_four"
             android:text="4"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_five"
             android:text="5"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_six"
             android:text="6"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_multiply"
             android:text="*"
-            />
-        <Button style="@style/AppTheme.CalculatorButton"
-            android:id="@+id/button_inverse"
-            android:text="1/x"
+            android:onClick="operationPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_one"
             android:text="1"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_two"
             android:text="2"
+            android:onClick="numberPressed"
             />
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_three"
             android:text="3"
+            android:onClick="numberPressed"
             />
+
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_less"
             android:text="-"
+            android:onClick="operationPressed"
             />
-        <Button style="@style/AppTheme.CalculatorButton"
-            android:id="@+id/button_equals"
-            android:text="="
-            android:layout_rowSpan="2"
-            android:layout_gravity="fill"
-            />
+
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_zero"
             android:text="0"
+            android:onClick="numberPressed"
             android:layout_columnSpan="2"
             android:layout_gravity="fill"
             />
@@ -103,38 +106,23 @@
         <Button style="@style/AppTheme.CalculatorButton"
             android:id="@+id/button_plus"
             android:text="+"
+            android:onClick="operationPressed"
+            />
+        <Button style="@style/AppTheme.CalculatorButton"
+            android:id="@+id/button_backspace"
+            android:text="◀"
+            android:paddingRight="18dp"
+            />
+        <Button style="@style/AppTheme.CalculatorButton"
+            android:id="@+id/button_equals"
+            android:text="="
+            android:layout_columnSpan="2"
+            />
+        <Button style="@style/AppTheme.CalculatorButton"
+            android:id="@+id/button_c"
+            android:text="C"
             />
 
-        <TextView
-            android:width="1dp"
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:width="1dp"
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:width="1dp"
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:text="New Text"
-            android:layout_alignParentStart="true" />
 
     </GridLayout>
 

@@ -17,28 +17,37 @@
     <style name="AppTheme.Result" >
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
         <item name="android:textColor">#000</item>
         <item name="android:typeface">monospace</item>
-        <item name="android:background">#ddd</item>
         <item name="android:textSize">35dp</item> <!--send to parent-->
         <item name="android:elevation">-8dp</item>
+        <item name="android:background">@drawable/result_display</item>
     </style>
 
-    <style name="AppTheme.CalculatorButton" >
-        <!--<item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        -->
+    <style name="AppTheme.CalculatorButton" parent="android:Theme.Material">
+
         <item name="android:textColor">#fff</item>
         <item name="android:typeface">monospace</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:background">#4285f4</item>
+        <item name="android:backgroundTint">#4285f4</item>
         <item name="android:textSize">35dp</item>
-        <item name="android:width">20dp</item>
         <item name="android:elevation">8dp</item>
-        <!--<item name="android:layout_marginRight">15dp</item>-->
+
+        <!--<item name="android:layout_columnWeight">1</item>-->
+        <item name="android:layout_gravity">fill</item>
+        <!--<item name="android:layout_rowWeight">1</item>-->
+        <!--<item name="android:layout_width">65dp</item>-->
 
         <item name="android:layout_weight">1</item>
+        <!--<item name="android:theme">@android:style/Theme.Material</item>-->
+        <!--<item name="android:layout_marginBottom">5dp</item>-->
+
+
     </style>
 
 </resources>
