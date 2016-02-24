@@ -6,56 +6,50 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private Calculator calculator;
+    private TextView displayView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
-       /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-        TextView resultTextView = (TextView) findViewById(R.id.resultTextView);
-
-        calculator = new Calculator(resultTextView);
-
+        displayView = (TextView) findViewById(R.id.displayView);
+        calculator = new Calculator();
+        updateDisplayView(calculator.getDisplayValue());
     }
 
-    public void numberPressed (View view) {
-//        Intent intent = new Intent (this, Main2Activity.class);
-//        startActivity(intent);
-
+    public void numberPressed(View v) {
         Log.d("some tag", "number pressed called");
-//        TODO check error case
-//        TODO this is not working with more than one digit
-        Button b = (Button) view;
-        String buttonText = b.getText().toString();
-
-        int number = Integer.parseInt(buttonText);
+        int number = Integer.parseInt((String) v.getTag());
         calculator.numberPressed(number);
+        updateDisplayView(calculator.getDisplayValue());
     }
-    public void operationPressed(View view){
+
+    public void operationPressed(View v) {
         Log.d("some tag", "operation pressed called");
         //        TODO check error case
-        Button b = (Button) view;
-        String buttonText = b.getText().toString();
-        calculator.operationPressed(buttonText);
+        calculator.operationPressed((String) v.getTag());
+        updateDisplayView(calculator.getDisplayValue());
     }
 
+    public void equalsPressed(View v) {
+        calculator.equalsPressed();
+        updateDisplayView(calculator.getDisplayValue());
+    }
+
+    public void cPressed(View v) {
+        calculator.cPressed();
+        updateDisplayView(calculator.getDisplayValue());
+    }
+
+    public void commaPressed(View v) {
+        calculator.commaPressed();
+        updateDisplayView(calculator.getDisplayValue());
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,4 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void updateDisplayView(String display) {
+        displayView.setText(String.valueOf(display));
+    }
+
 }

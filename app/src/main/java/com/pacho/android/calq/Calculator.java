@@ -1,17 +1,25 @@
 package com.pacho.android.calq;
 
-import android.widget.TextView;
-
 /**
  * Created by Pacho on 22/02/2016.
+ * <p/>
+ * This class does not do any check on number size
  */
 public class Calculator {
+    private String displayValue;
 
-    //    TODO define and auto apply best practices on indentation
-//    TODO manage events properly
 //    TODO add tests
+    private int BASE = 10;
+
+    private Operation currentOperation;
+    private double result;
+    private double accumulator;
+    private boolean isAccumulatorDecimal;
+    private int accumulatorDecimalPosition;
+    private double previousResult;
 
     private enum Operation {
+        DISPLAY("DISPLAY"),
         SUM("+"),
         SUBTRACTION("-"),
         MULTIPLICATION("*"),
@@ -20,50 +28,124 @@ public class Calculator {
         private String symbol;
 
         Operation(String symbol) {
-            this.symbol=symbol;
+            this.symbol = symbol;
         }
 
-        private static Operation findBySymbol (String symbol){
-            switch (symbol){
-                case "+": return SUM;
-                case "-": return SUBTRACTION;
-                case "*": return MULTIPLICATION;
-                default: return DIVISION;
+        private static Operation findBySymbol(String symbol) {
+            switch (symbol) {
+                case "+":
+                    return SUM;
+                case "-":
+                    return SUBTRACTION;
+                case "*":
+                    return MULTIPLICATION;
+                default:
+                    return DIVISION;
             }
         }
+
+    }
+    public Calculator() {
+        fullReset();
+        displayValue = String.valueOf(result);
     }
 
-    private double result = 0.0;
-    private TextView resultTextView;
-
-    public Calculator(TextView resultTextView) {
-        this.resultTextView = resultTextView;
+    public void cPressed() {
+        fullReset();
     }
 
-    private Operation currentOperation = Operation.SUM;
+    private void fullReset() {
+        result = 0.0;
+        readyForNewOperation();
+    }
 
+    public void numberPressed(int number) {
 
-    public void numberPressed(int number){
-        switch (currentOperation) {
-            case DIVISION: result /= number; break;
-            case MULTIPLICATION: result *= number; break;
-            case SUBTRACTION: result -= number; break;
-            default: result += number;
+        // we may have saved the result in case a new op is called on it.
+        // on pressing a number this result is no longer necessary.
+        // this is atm being called many times and doing nothing.
+        previousResult = 0.0;
+
+        // the number is growing
+        if (!isAccumulatorDecimal) {
+            accumulator = (accumulator * BASE) + number;
+        }
+        else {
+            // need to cast to double or the division will be int
+            accumulator = accumulator + ((double)number / Math.pow(BASE, ++accumulatorDecimalPosition));
+        }
+        displayValue = String.valueOf(accumulator);
+    }
+
+    public void operationPressed(String symbol) {
+
+        // we may have saved the result in case a new op is called on it.
+        if (previousResult > 0) {
+            result += previousResult;
+            previousResult = 0.0;
         }
 
-        updateResultView();
+        // finish possible previous chain of calculation
+        calculate();
+        currentOperation = Operation.findBySymbol(symbol);
+        displayValue = String.valueOf(result);
+        // decimal status is readyForNewOperation as the acumulation would start again
+        resetAccumulator();
+    }
 
-//        setContentView(R.layout.layoutName);
-//        TextView textView = (TextView) findViewById(R.id.textViewName);
-//        textView.setText("text you want to display");
+    public void commaPressed() {
+        if (!isAccumulatorDecimal) {
+            isAccumulatorDecimal = true;
+        }
+        // when an operation or equals is called, I decimal status should be readyForNewOperation
+    }
+
+    public String getDisplayValue() {
+        return displayValue;
+    }
+
+    private void calculate() {
+
+        switch (currentOperation) {
+            case SUM:
+                result += accumulator;
+                break;
+            case SUBTRACTION:
+                result -= accumulator;
+                break;
+            case MULTIPLICATION:
+                result *= accumulator;
+                break;
+            case DIVISION:
+                result /= accumulator;
+                break;
+            case DISPLAY:
+                result += accumulator;
+                break;
+            default:
+                throw new IllegalStateException("Some operation should have applied.");
+        }
 
     }
 
-    public void operationPressed(String symbol){
-        this.currentOperation = Operation.findBySymbol(symbol);
+    public void equalsPressed() {
+        calculate();
+        displayValue = String.valueOf(result);
+
+        previousResult = result;
+
+        fullReset();
     }
 
-    private void updateResultView(){
-        resultTextView.setText(String.valueOf(result));
+    public void readyForNewOperation() {
+        currentOperation = Operation.DISPLAY;
+        resetAccumulator();
     }
+
+    public void resetAccumulator() {
+        accumulator = 0.0;
+        isAccumulatorDecimal = false;
+        accumulatorDecimalPosition = 0;
+    }
+
 }
